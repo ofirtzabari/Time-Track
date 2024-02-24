@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Rgister">
+    tools:context=".RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,15 +35,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp">
 
-            <EditText
-                android:id="@+id/s1"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:autofillHints=""
-                android:hint="@string/email"
+                android:hint="@string/password"
                 android:inputType="textEmailAddress"
-                android:textColorHint="#546E7A" />
+                android:layout_margin="20dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -52,7 +50,7 @@
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/s2"
+                android:id="@+id/passwordR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
@@ -61,7 +59,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_up"
