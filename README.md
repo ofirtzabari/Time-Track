@@ -34,7 +34,7 @@ Contributions to the Shift Tracker App are welcome! If you have suggestions for 
 This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
-For any inquiries or feedback, feel free to contact the project maintainer:
+For any inquiries or feedback, feel free to contact the project maintainers:
 - GitHub: [ofirtzabari](https://github.com/ofirtzabari)
 - GitHub: [Shalevro2](https://github.com/Shalevro2)
 - GitHub: [Ofek258](https://github.com/Ofek258)
