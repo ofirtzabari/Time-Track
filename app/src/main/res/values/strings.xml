@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Time Track</string>
+    <string name="welcome"> Welcome Back</string>
+    <string name="login"> Log In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="loginButton">Login</string>
+    <string name="d_ont_have_an_account">D\'ont have an account? </string>
+    <string name="sign_up"> Sign Up</string>
+    <string name="hello">Hello</string>
 </resources>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "514623067883",
+    "project_id": "time-track-ac631",
+    "storage_bucket": "time-track-ac631.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514623067883:android:e029c4c9fd862c37c550ae",
+        "android_client_info": {
+          "package_name": "com.example.timetrack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX-x4tjQD56DPpEolUNyu6fXeTr0qGdak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
