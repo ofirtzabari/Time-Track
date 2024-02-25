@@ -14,8 +14,7 @@ Shift Tracker App is an Android application designed to help users track their s
 To use the Shift Tracker App, follow these steps:
 1. Clone the repository to your local machine: 
 2. Open the project in Android Studio.
-3. Connect the app to Firebase by following the Firebase setup instructions provided in the `firebase-setup.md` file.
-4. Build and run the app on an Android device or emulator.
+3. Build and run the app on an Android device or emulator.
 
 ## Dependencies
 - Firebase SDK: Firebase Authentication and Realtime Database
