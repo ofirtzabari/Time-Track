@@ -1,3 +1,7 @@
+<p align="center">
+  <img alt= "Time Track" src="https://github.com/ofirtzabari/Time-Track/blob/master/Time%20Tracker%20logos/png/logo-no-background.png" width="450">
+</p>
+
 # Shift Tracker App
 
 ## Overview
