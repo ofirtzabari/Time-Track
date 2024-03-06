@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         //test
         // Create a new user with a first, middle, and last name
@@ -46,20 +46,35 @@ public class MainActivity extends AppCompatActivity {
 //        db.collection("users")
 //                .add(user);
         /// end of test
+//        LocalDateTime startTime = LocalDateTime.of(2024, 2, 28, 10, 30, 0);
+//        LocalDateTime endTime = LocalDateTime.of(2024, 2, 28, 15, 45, 30);
+//        Shift s1 = new Shift(startTime, endTime);
+////        Map<String, Object> shift1 = new HashMap<>();
+////        shift1.put("start", s1.startTime);
+////        shift1.put("end", s1.endTime);
+//        List<Map<String, Object>> arrayOfMaps = new ArrayList<>();
+//
+//        arrayOfMaps.add(ObjectToMapConverter.convertObjectToMap(s1));
+//
+//
+//        db.collection("users")
+//                .document("OFEK@gmail.com").set(arrayOfMaps);
+
+
+        User u = new User("Shalev", "Shalev@gmail.com", 100f, "1234");
+        u.StoreUserInDB();
+        User u1 = new User("Ofir", "Ofir@gmail.com", 100f, "1234");
+        u1.StoreUserInDB();
+
+
         LocalDateTime startTime = LocalDateTime.of(2024, 2, 28, 10, 30, 0);
         LocalDateTime endTime = LocalDateTime.of(2024, 2, 28, 15, 45, 30);
-        Shift s1 = new Shift(startTime, endTime);
-//        Map<String, Object> shift1 = new HashMap<>();
-//        shift1.put("start", s1.startTime);
-//        shift1.put("end", s1.endTime);
-        List<Map<String, Object>> arrayOfMaps = new ArrayList<>();
-
-        arrayOfMaps.add(ObjectToMapConverter.convertObjectToMap(s1));
-
-
-        db.collection("users")
-                .document("OFEK@gmail.com").set(arrayOfMaps);
-
+        Shift s1 = new Shift(startTime, endTime, u);
+        Shift s2 = new Shift(startTime, endTime, u);
+        Shift s3 = new Shift(startTime, endTime, u1);
+        s1.StoreUserInDB();
+        s2.StoreUserInDB();
+        s3.StoreUserInDB();
 
 
 
