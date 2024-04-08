@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = new Intent(MainActivity.this, JobSetting.class);
+        startActivity(intent);
 
 //        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -61,20 +64,20 @@ public class MainActivity extends AppCompatActivity {
 //                .document("OFEK@gmail.com").set(arrayOfMaps);
 
 
-        User u = new User("Shalev", "Shalev@gmail.com", 100f, "1234");
-        u.StoreUserInDB();
-        User u1 = new User("Ofir", "Ofir@gmail.com", 100f, "1234");
-        u1.StoreUserInDB();
-
-
-        LocalDateTime startTime = LocalDateTime.of(2024, 2, 28, 10, 30, 0);
-        LocalDateTime endTime = LocalDateTime.of(2024, 2, 28, 15, 45, 30);
-        Shift s1 = new Shift(startTime, endTime, u);
-        Shift s2 = new Shift(startTime, endTime, u);
-        Shift s3 = new Shift(startTime, endTime, u1);
-        s1.StoreUserInDB();
-        s2.StoreUserInDB();
-        s3.StoreUserInDB();
+//        User u = new User("Shalev", "Shalev@gmail.com", 100f, "1234");
+//        u.StoreUserInDB();
+//        User u1 = new User("Ofir", "Ofir@gmail.com", 100f, "1234");
+//        u1.StoreUserInDB();
+//
+//
+//        LocalDateTime startTime = LocalDateTime.of(2024, 2, 28, 10, 30, 0);
+//        LocalDateTime endTime = LocalDateTime.of(2024, 2, 28, 15, 45, 30);
+//        Shift s1 = new Shift(startTime, endTime, u);
+//        Shift s2 = new Shift(startTime, endTime, u);
+//        Shift s3 = new Shift(startTime, endTime, u1);
+//        s1.StoreUserInDB();
+//        s2.StoreUserInDB();
+//        s3.StoreUserInDB();
 
 
 
