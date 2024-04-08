@@ -8,4 +8,9 @@
     <string name="d_ont_have_an_account">D\'ont have an account? </string>
     <string name="sign_up"> Sign Up</string>
     <string name="hello">Hello</string>
+    <string name="date">date</string>
+    <string name="job_name">Job name</string>
+    <string name="hourly_rate">Hourly rate</string>
+    <string name="start_date">Start Date</string>
+    <string name="save">Save</string>
 </resources>
