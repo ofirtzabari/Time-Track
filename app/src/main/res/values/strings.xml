@@ -13,4 +13,5 @@
     <string name="hourly_rate">Hourly rate</string>
     <string name="start_date">Start Date</string>
     <string name="save">Save</string>
+    <string name="plus">+</string>
 </resources>

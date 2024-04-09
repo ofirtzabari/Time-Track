@@ -6,15 +6,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.SuccessContinuation;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.checkerframework.checker.units.qual.K;
@@ -27,13 +32,35 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
+    TextView jobNameView ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        jobNameView = (TextView)findViewById(R.id.jobNameView);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(MainActivity.this, JobSetting.class);
-        startActivity(intent);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        SharedPreferences sp= this.getSharedPreferences("Login", MODE_PRIVATE);
+        SharedPreferences.Editor Ed=sp.edit();
+        String email = sp.getString("user", "");
+    /*    DocumentReference docRef = db.collection("jobs").document(email);
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        String data = document.getString("jobName");
+                        jobNameView.setText(data);
+
+                    }
+
+                }
+
+            }
+        });
+
+
 
 //        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -81,5 +108,5 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    }
-}
+    }*/
+}}
