@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        jobNameView = (TextView)findViewById(R.id.jobNameView);
         setContentView(R.layout.activity_main);
+        jobNameView = (TextView)findViewById(R.id.jobNameView);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         SharedPreferences sp= this.getSharedPreferences("Login", MODE_PRIVATE);
         SharedPreferences.Editor Ed=sp.edit();
@@ -52,10 +52,33 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ShiftSetting.class);
                 startActivity(intent);
-                finish();
             }
         });
-    /*    DocumentReference docRef = db.collection("jobs").document(email);
+
+        // set the job name in the text view
+
+        DocumentReference docRef = db.collection("jobs").document(email);
+        //get jobName field from the document
+//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                if(documentSnapshot.exists()){
+//                    String data = documentSnapshot.getString("jobName");
+//                    jobNameView.setText(data);
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Log.d(TAG, "onFailure: " + e.toString());
+//            }
+//        });
+
+
+        //Toast.makeText(MainActivity.this, docRef.get().toString(), Toast.LENGTH_LONG).show();
+
+
+        //DocumentReference docRef = db.collection("jobs").document(email);
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -63,8 +86,12 @@ public class MainActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
-                        String data = document.getString("jobName");
-                        jobNameView.setText(data);
+                        Map<String, Object> data = document.getData();
+                        //Toast.makeText(MainActivity.this, data.get("jobName").toString(), Toast.LENGTH_LONG).show();
+                        //extract job name from the data
+                        String jobName = data.get("jobName").toString();
+
+                        jobNameView.setText(jobName);
 
                     }
 
@@ -121,5 +148,5 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    }*/
-}}
+    }
+}

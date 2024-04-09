@@ -17,11 +17,11 @@ public class Shift {
     LocalDateTime startTime;
     LocalDateTime endTime;
 
-    User user;
-    public Shift(LocalDateTime startTime, LocalDateTime endTime, User user) {
+    String email;
+    public Shift(LocalDateTime startTime, LocalDateTime endTime, String email) {
         this.startTime = startTime;
         this.endTime = endTime;
-        this.user = user;
+        this.email = email;
     }
 
     public float calc_time() {
@@ -37,7 +37,7 @@ public class Shift {
         shift.put("startTime", startTime);
         shift.put("endTime", endTime);
         shift.put("totalTime", calc_time());
-        shift.put("user", user.getEmail());
+        shift.put("email", email);
 
         db.collection("shifts").add(shift);
     }
