@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.SuccessContinuation;
@@ -41,19 +42,21 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sp= this.getSharedPreferences("Login", MODE_PRIVATE);
         SharedPreferences.Editor Ed=sp.edit();
         String email = sp.getString("user", "");
-        DocumentReference docRef = db.collection("jobs").document(email);
-        Task<DocumentSnapshot> dr_task = docRef.get();
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    /*    DocumentReference docRef = db.collection("jobs").document(email);
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.exists()){
-                    String jobnameNew = documentSnapshot.getString("jobName");
-                    jobNameView.setText(jobnameNew)  ;
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        String data = document.getString("jobName");
+                        jobNameView.setText(data);
+
+                    }
+
                 }
-                else {
-                    Intent intent = new Intent(MainActivity.this, JobSetting.class);
-                    startActivity(intent);
-                }
+
             }
         });
 
@@ -105,5 +108,5 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    }
-}
+    }*/
+}}
