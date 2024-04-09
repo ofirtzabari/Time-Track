@@ -14,4 +14,5 @@
     <string name="start_date">Start Date</string>
     <string name="save">Save</string>
     <string name="plus">+</string>
+    <string name="textview">TextView</string>
 </resources>
