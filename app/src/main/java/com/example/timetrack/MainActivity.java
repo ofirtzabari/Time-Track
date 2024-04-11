@@ -7,10 +7,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,19 +37,24 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
     TextView jobNameView ;
     Button plus;
+    ScrollView scrollView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         jobNameView = (TextView)findViewById(R.id.jobNameView);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         SharedPreferences sp= this.getSharedPreferences("Login", MODE_PRIVATE);
         SharedPreferences.Editor Ed=sp.edit();
         String email = sp.getString("user", "");
+
+        scrollView =(ScrollView ) findViewById(R.id.scrollView);
 
         plus = findViewById(R.id.plusBtn);
         plus.setOnClickListener(new View.OnClickListener() {
@@ -101,50 +111,59 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        //test
-        // Create a new user with a first, middle, and last name
-//        Map<String, Object> user = new HashMap<>();
-//        user.put("first", "OFIR");
-//        user.put("middle", "T");
-//        user.put("last", "12");
-//        user.put("born", 1912);
-//
-//        // Add a new document with a generated ID
-//        db.collection("users")
-//                .add(user);
-        /// end of test
-//        LocalDateTime startTime = LocalDateTime.of(2024, 2, 28, 10, 30, 0);
-//        LocalDateTime endTime = LocalDateTime.of(2024, 2, 28, 15, 45, 30);
-//        Shift s1 = new Shift(startTime, endTime);
-////        Map<String, Object> shift1 = new HashMap<>();
-////        shift1.put("start", s1.startTime);
-////        shift1.put("end", s1.endTime);
-//        List<Map<String, Object>> arrayOfMaps = new ArrayList<>();
-//
-//        arrayOfMaps.add(ObjectToMapConverter.convertObjectToMap(s1));
-//
-//
-//        db.collection("users")
-//                .document("OFEK@gmail.com").set(arrayOfMaps);
+        //bring the shifts from the db of the user and display them in the list view
+        //get all shifts from the db and search shifts with the same email in the field "email" and display them in the list view
 
 
-//        User u = new User("Shalev", "Shalev@gmail.com", 100f, "1234");
-//        u.StoreUserInDB();
-//        User u1 = new User("Ofir", "Ofir@gmail.com", 100f, "1234");
-//        u1.StoreUserInDB();
-//
-//
-//        LocalDateTime startTime = LocalDateTime.of(2024, 2, 28, 10, 30, 0);
-//        LocalDateTime endTime = LocalDateTime.of(2024, 2, 28, 15, 45, 30);
-//        Shift s1 = new Shift(startTime, endTime, u);
-//        Shift s2 = new Shift(startTime, endTime, u);
-//        Shift s3 = new Shift(startTime, endTime, u1);
-//        s1.StoreUserInDB();
-//        s2.StoreUserInDB();
-//        s3.StoreUserInDB();
+
+
+
+        db.collection("shifts").get().addOnCompleteListener(new OnCompleteListener<com.google.firebase.firestore.QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<com.google.firebase.firestore.QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    List<Shift> shifts = new LinkedList<>();
+                    for(DocumentSnapshot document : task.getResult()){
+                        Map<String, Object> data = document.getData();
+
+                        LocalDateTime start = Shift.fromMap((Map<String, Object>) data.get("startTime"));
+                        LocalDateTime end = Shift.fromMap((Map<String, Object>) data.get("endTime"));
+
+
+                        //add dynamically the shifts to the list view
+                        //create a new shift object and add it to the list
+                        shifts.add(new Shift(start, end, email));
+
+
+
+
+////                        Toast.makeText(MainActivity.this, shifts.toString(), Toast.LENGTH_LONG).show();
+                    }
+
+                    LinearLayout liniarLayout = new LinearLayout(MainActivity.this);
+                    liniarLayout.setOrientation(LinearLayout.VERTICAL);
+                    GradientDrawable border = new GradientDrawable();
+                    border.setColor(Color.WHITE); // Set background color
+                    border.setStroke(2, Color.RED); // Set border color and width
+                    border.setCornerRadius(8); // Set corner radius
+
+                    for (Shift s : shifts){
+                        TextView textView = new TextView(MainActivity.this);
+                        textView.setTextSize(20);
+                        //textView.setHeight() wrap content
+                        textView.setPadding(10, 10, 0, 10);
+
+
+                        textView.setBackground(border);
+                        textView.setText(s.toString());
+                        liniarLayout.addView(textView);
+                    }
+                    scrollView.addView(liniarLayout);
+                }
+            }
+        });
+
+
 
 
 

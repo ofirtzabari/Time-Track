@@ -46,6 +46,20 @@ public class Shift {
     @SuppressLint("DefaultLocale")
     @Override
     public String toString() {
-        return String.format("%f", calc_time());
+        // create a string representation of the shift
+        return String.format("Start: %s\nEnd: %s\nTotal Time: %.2f", startTime, endTime, calc_time());
+
+    }
+
+    //crete a new shift object from a map
+    public static LocalDateTime fromMap(Map<String, Object> data){
+
+        Long year = (Long) data.get("year");
+        Long month = (Long) data.get("monthValue");
+        Long day = (Long) data.get("dayOfMonth");
+        Long hour = (Long) data.get("hour");
+        Long minute = (Long) data.get("minute");
+        LocalDateTime l = LocalDateTime.of(year.intValue(), month.intValue(), day.intValue(),hour.intValue(),minute.intValue());
+        return LocalDateTime.of(year.intValue(), month.intValue(), day.intValue(),hour.intValue(),minute.intValue());
     }
 }
