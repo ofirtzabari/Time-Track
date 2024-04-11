@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ShiftSetting.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -103,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
 
                         jobNameView.setText(jobName);
 
+                    }
+                    else {
+                        Intent intent = new Intent(MainActivity.this, JobSetting.class);
+                        startActivity(intent);
+                        finish();
                     }
 
                 }

@@ -1,6 +1,7 @@
 package com.example.timetrack;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
@@ -98,6 +99,8 @@ public class JobSetting extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(JobSetting.this, "Job saved", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(JobSetting.this, MainActivity.class);
+                        startActivity(intent);
                         finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {

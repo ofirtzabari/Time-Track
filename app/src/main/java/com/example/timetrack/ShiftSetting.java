@@ -99,6 +99,8 @@ public class ShiftSetting extends AppCompatActivity {
                 Shift shift = new Shift(startDateTime, endDateTime, email);
                 shift.StoreUserInDB();
                 //return to the main activity
+                Intent intent = new Intent(ShiftSetting.this, MainActivity.class);
+                startActivity(intent);
                 finish();
 // Do not call finish() here
             }

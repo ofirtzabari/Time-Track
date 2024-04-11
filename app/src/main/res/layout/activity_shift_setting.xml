@@ -18,7 +18,7 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -29,14 +29,15 @@
                 android:gravity="center"
                 android:text="Entrance Time"
                 android:layout_marginTop="20px"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textSize="25sp"/>
 
             <TimePicker
                 android:id="@+id/timePicker1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:timePickerMode="clock" />
+                android:timePickerMode="spinner" />
 
 
 
@@ -44,7 +45,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -55,15 +56,15 @@
                 android:gravity="center"
                 android:text="Living Time"
                 android:layout_marginTop="20px"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textSize="25sp"/>
 
             <TimePicker
                 android:id="@+id/timePicker2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:timePickerMode="clock"
-                />
+                android:timePickerMode="spinner" />
 
         </LinearLayout>
 
@@ -79,7 +80,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/start_date" />
+                android:text="@string/start_date"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
 
 
             <EditText
