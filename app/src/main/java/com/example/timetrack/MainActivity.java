@@ -125,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
         db.collection("shifts").get().addOnCompleteListener(new OnCompleteListener<com.google.firebase.firestore.QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<com.google.firebase.firestore.QuerySnapshot> task) {
