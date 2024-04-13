@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     LinearLayout liniarLayout = new LinearLayout(MainActivity.this);
                     liniarLayout.setOrientation(LinearLayout.VERTICAL);
                     GradientDrawable border = new GradientDrawable();
-                    border.setColor(Color.WHITE); // Set background color -> white
+                    border.setColor(Color.WHITE); // Set background color
                     border.setStroke(2, Color.RED); // Set border color and width
                     border.setCornerRadius(8); // Set corner radius
 
