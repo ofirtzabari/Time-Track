@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,13 +42,15 @@ import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
     TextView jobNameView ;
+    TextView totalHoursView ;
+
     Button plus;
     ScrollView scrollView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        totalHoursView = (TextView)findViewById(R.id.totalHours);
         jobNameView = (TextView)findViewById(R.id.jobNameView);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         SharedPreferences sp= this.getSharedPreferences("Login", MODE_PRIVATE);
@@ -128,22 +131,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<com.google.firebase.firestore.QuerySnapshot> task) {
                 if(task.isSuccessful()){
+                    double totalHours = 0;
                     List<Shift> shifts = new LinkedList<>();
                     for(DocumentSnapshot document : task.getResult()){
                         Map<String, Object> data = document.getData();
 
                         LocalDateTime start = Shift.fromMap((Map<String, Object>) data.get("startTime"));
                         LocalDateTime end = Shift.fromMap((Map<String, Object>) data.get("endTime"));
+                        totalHours += document.getDouble("totalTime").doubleValue();
 
-
-                        //add dynamically the shifts to the list view
-                        //create a new shift object and add it to the list
+                        // add dynamically the shifts to the list view
+                        // create a new shift object and add it to the list
                         shifts.add(new Shift(start, end, email));
-
-
-
-
-////                        Toast.makeText(MainActivity.this, shifts.toString(), Toast.LENGTH_LONG).show();
                     }
 
                     LinearLayout liniarLayout = new LinearLayout(MainActivity.this);
@@ -156,15 +155,17 @@ public class MainActivity extends AppCompatActivity {
                     for (Shift s : shifts){
                         TextView textView = new TextView(MainActivity.this);
                         textView.setTextSize(20);
-                        //textView.setHeight() wrap content
                         textView.setPadding(10, 10, 0, 10);
-
 
                         textView.setBackground(border);
                         textView.setText(s.toString());
                         liniarLayout.addView(textView);
                     }
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    // Format the totalHours value with the DecimalFormat object
+                    String formattedTotalHours = df.format(totalHours);
                     scrollView.addView(liniarLayout);
+                    totalHoursView.setText("Total Hours: " + formattedTotalHours);
                 }
             }
         });
