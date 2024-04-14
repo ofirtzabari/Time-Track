@@ -90,19 +90,19 @@ public class ShiftSetting extends AppCompatActivity {
                 int month = Integer.parseInt(dateParts[1]);
                 int day = Integer.parseInt(dateParts[0]);
 
-                //create LocalDateTime objects for the start and end times
+                // create LocalDateTime objects for the start and end times
                 LocalDateTime startDateTime =  LocalDate.of(year, month, day).atTime(startHour, startMinute);
                 LocalDateTime endDateTime =  LocalDate.of(year, month, day).atTime(endHour, endMinute);
 
 
                 // Create a new shift
                 Shift shift = new Shift(startDateTime, endDateTime, email);
-                shift.StoreUserInDB();
+                shift.StoreShiftInDB();
                 //return to the main activity
                 Intent intent = new Intent(ShiftSetting.this, MainActivity.class);
                 startActivity(intent);
                 finish();
-// Do not call finish() here
+                // Do not call finish() here
             }
         });
     }
