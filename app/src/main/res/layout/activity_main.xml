@@ -26,7 +26,8 @@
                 android:layout_margin="10sp"
                 android:gravity="center"
                 android:text="@string/job_name"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/date"
@@ -35,7 +36,9 @@
                 android:layout_margin="10dp"
                 android:gravity="center"
                 android:text="@string/date"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:layout_weight="2"/>
+
 
         </LinearLayout>
 
@@ -63,8 +66,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
                 android:text=""
-                android:textColor="#FFFFFF"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"/>
 
             <!-- Button -->
             <Button
