@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -69,31 +70,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // set the job name in the text view
-
         DocumentReference docRef = db.collection("jobs").document(email);
-        //get jobName field from the document
-//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                if(documentSnapshot.exists()){
-//                    String data = documentSnapshot.getString("jobName");
-//                    jobNameView.setText(data);
-//                }
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Log.d(TAG, "onFailure: " + e.toString());
-//            }
-//        });
-
-
-        //Toast.makeText(MainActivity.this, docRef.get().toString(), Toast.LENGTH_LONG).show();
-
-
-        //DocumentReference docRef = db.collection("jobs").document(email);
-
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -101,12 +78,10 @@ public class MainActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
                         Map<String, Object> data = document.getData();
-                        //Toast.makeText(MainActivity.this, data.get("jobName").toString(), Toast.LENGTH_LONG).show();
                         //extract job name from the data
                         String jobName = data.get("jobName").toString();
 
                         jobNameView.setText(jobName);
-
                     }
                     else {
                         Intent intent = new Intent(MainActivity.this, JobSetting.class);
@@ -122,10 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
         //bring the shifts from the db of the user and display them in the list view
         //get all shifts from the db and search shifts with the same email in the field "email" and display them in the list view
-
-
-
         db.collection("shifts").get().addOnCompleteListener(new OnCompleteListener<com.google.firebase.firestore.QuerySnapshot>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onComplete(@NonNull Task<com.google.firebase.firestore.QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -140,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // add dynamically the shifts to the list view
                         // create a new shift object and add it to the list
-                        shifts.add(new Shift(start, end, email));
+                        shifts.add(new Shift(start, end, email, document.getId()));
                     }
 
                     LinearLayout liniarLayout = new LinearLayout(MainActivity.this);
@@ -150,20 +123,67 @@ public class MainActivity extends AppCompatActivity {
                     border.setStroke(2, Color.RED); // Set border color and width
                     border.setCornerRadius(8); // Set corner radius
 
-                    for (Shift s : shifts){
+                    for (final Shift shift : shifts) {
+                        // Create a LinearLayout to hold TextView and Button
+                        LinearLayout itemLayout = new LinearLayout(MainActivity.this);
+                        itemLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        ));
+                        itemLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+                        // Create a TextView to display the shift information
                         TextView textView = new TextView(MainActivity.this);
                         textView.setTextSize(20);
                         textView.setPadding(10, 10, 0, 10);
-
                         textView.setBackground(border);
-                        textView.setText(s.toString());
-                        liniarLayout.addView(textView);
+                        textView.setText(shift.toString());
+
+                        // Create a Button to delete the shift
+                        Button deleteButton = new Button(MainActivity.this);
+                        deleteButton.setText("\uD83D\uDDD1");
+
+                        // Set layout parameters for the delete button
+                        LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(
+                                150, // Width in pixels
+                                150  // Height in pixels
+                        );
+                        buttonLayoutParams.setMargins(16, 0, 0, 0); // Set left margin
+                        deleteButton.setLayoutParams(buttonLayoutParams);
+
+                        deleteButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // Handle delete button click event here
+                                // For example, remove the shift from the list and update the UI
+                                shifts.remove(shift);
+                                shift.DeleteShiftFromDB();
+                                double totalHours = 0;
+                                for(Shift sh: shifts){
+                                    totalHours += sh.getTotalHours();
+                                }
+                                liniarLayout.removeView(itemLayout); // Remove the itemLayout from the parent layout
+                                DecimalFormat df = new DecimalFormat("#.##");
+                                // Format the totalHours value with the DecimalFormat object
+                                String formattedTotalHours = df.format(totalHours);
+                                totalHoursView.setText("Total Hours: " + formattedTotalHours);
+                            }
+                        });
+
+                        // Add TextView and Button to the itemLayout
+                        itemLayout.addView(textView);
+                        itemLayout.addView(deleteButton);
+
+                        // Add the itemLayout to the parent layout (liniarLayout)
+                        liniarLayout.addView(itemLayout);
                     }
+                    scrollView.addView(liniarLayout);
+
                     DecimalFormat df = new DecimalFormat("#.##");
                     // Format the totalHours value with the DecimalFormat object
                     String formattedTotalHours = df.format(totalHours);
-                    scrollView.addView(liniarLayout);
                     totalHoursView.setText("Total Hours: " + formattedTotalHours);
+
                 }
             }
         });

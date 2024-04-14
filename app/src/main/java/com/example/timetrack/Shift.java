@@ -2,6 +2,8 @@ package com.example.timetrack;
 
 import android.annotation.SuppressLint;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -18,18 +20,33 @@ public class Shift {
     LocalDateTime endTime;
 
     String email;
+
+    double totalHours;
+
+    String id;
+
     public Shift(LocalDateTime startTime, LocalDateTime endTime, String email) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.email = email;
+        this.totalHours = calc_time();
     }
 
-    public float calc_time() {
+    public Shift(LocalDateTime startTime, LocalDateTime endTime, String email, String id) {
+        this(startTime, endTime, email);
+        this.id = id;
+    }
+
+    public double getTotalHours() {
+        return totalHours;
+    }
+
+    public double calc_time() {
         Duration duration = Duration.between(startTime, endTime);
-        return duration.toMinutes() / 60.0f;
+        return duration.toMinutes() / 60.0d;
     }
 
-    public void StoreUserInDB(){
+    public void StoreShiftInDB(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Map<String, Object> shift = new HashMap<>();
@@ -40,6 +57,22 @@ public class Shift {
         shift.put("email", email);
 
         db.collection("shifts").add(shift);
+    }
+
+    public void DeleteShiftFromDB(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Get a reference to the document
+        DocumentReference docRef = db.collection("shifts").document(this.id);
+
+        // Delete the document
+        docRef.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+
     }
 
     @NonNull
