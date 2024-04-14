@@ -3,6 +3,12 @@
     <style name="Base.Theme.TimeTrack" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">#E4ECEA</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <item name="textInputStyle">@color/black</item>
+        <item name="android:textColorPrimary">@color/black</item>
     </style>
 
     <style name="Theme.TimeTrack" parent="Base.Theme.TimeTrack" />

@@ -79,7 +79,9 @@ public class Shift {
     @SuppressLint("DefaultLocale")
     @Override
     public String toString() {
-        // create a string representation of the shift
+        // create a string representation of the shift without T between date and time
+        String startTime = this.startTime.toString().replace("T", " ");
+        String endTime = this.endTime.toString().replace("T", " ");
         return String.format("Start: %s\nEnd: %s\nTotal Time: %.2f", startTime, endTime, calc_time());
 
     }

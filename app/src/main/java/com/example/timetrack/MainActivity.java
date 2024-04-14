@@ -42,7 +42,7 @@ import java.util.Map;
 import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
-    TextView jobNameView ;
+    TextView jobNameView, date ;
     TextView totalHoursView ;
 
     Button plus;
@@ -59,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
         String email = sp.getString("user", "");
 
         scrollView =(ScrollView ) findViewById(R.id.scrollView);
+        date = (TextView) findViewById(R.id.date);
+        LocalDateTime now = LocalDateTime.now();
+        //only date without time
+
+        date.setText(now.toLocalDate().toString());
 
         plus = findViewById(R.id.plusBtn);
         plus.setOnClickListener(new View.OnClickListener() {
