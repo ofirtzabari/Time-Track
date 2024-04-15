@@ -13,6 +13,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -152,9 +153,15 @@ public class MainActivity extends AppCompatActivity {
                                 150, // Width in pixels
                                 150  // Height in pixels
                         );
-                        buttonLayoutParams.setMargins(16, 0, 0, 0); // Set left margin
+                        buttonLayoutParams.setMargins(20, 20, 20, 20); // Set left margin
                         deleteButton.setLayoutParams(buttonLayoutParams);
 
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        params.gravity = Gravity.CENTER;
+                        deleteButton.setLayoutParams(params);
                         deleteButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -178,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                         Button editButton = new Button(MainActivity.this);
                         editButton.setText("\uD83D\uDD8A");
                         editButton.setLayoutParams(buttonLayoutParams);
+                        editButton.setLayoutParams(params);
                         editButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

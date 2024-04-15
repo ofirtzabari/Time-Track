@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -28,6 +29,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Map;
 
 public class ShiftSetting extends AppCompatActivity {
 
@@ -38,6 +40,8 @@ public class ShiftSetting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shift_setting);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         startDate = findViewById(R.id.editTextDate1);
         save = findViewById(R.id.button1);
@@ -108,7 +112,29 @@ public class ShiftSetting extends AppCompatActivity {
 
                 // Create a new shift
                 Shift shift = new Shift(startDateTime, endDateTime, email);
-                shift.StoreShiftInDB();
+                if (getIntent().hasExtra("shiftId")) {
+                    //get the shift id from the intent
+                    String shiftId = getIntent().getStringExtra("shiftId");
+                    //update the shift in db
+                    DocumentReference docRef = db.collection("shifts").document(shiftId);
+                    docRef.update(
+                            "startTime", shift.startTime,
+                            "endTime", shift.endTime,
+                            "totalTime", shift.calc_time()
+                    ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "DocumentSnapshot successfully updated!");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error updating document", e);
+                        }
+                    });
+                }
+                else
+                    shift.StoreShiftInDB();
                 //return to the main activity
                 Intent intent = new Intent(ShiftSetting.this, MainActivity.class);
                 startActivity(intent);
@@ -121,25 +147,41 @@ public class ShiftSetting extends AppCompatActivity {
             //get the shift id from the intent
             String shiftId = getIntent().getStringExtra("shiftId");
 
-            //initialize the clocks and date with the shift data
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-
             //get the shift data from the database
             DocumentReference docRef = db.collection("shifts").document(shiftId);
-            docRef.get(Source.CACHE).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
+                            Map<String, Object> data = document.getData();
+                            LocalDateTime st = Shift.fromMap((Map<String, Object>) data.get("startTime"));
+                            LocalDateTime et = Shift.fromMap((Map<String, Object>) data.get("endTime"));
 
-                            ///get the data from the document
+                            //set the date and time pickers with the shift data
+                            startDate.setText(st.toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                            startTime.setHour(st.getHour());
+                            startTime.setMinute(st.getMinute());
+                            endTime.setHour(et.getHour());
+                            endTime.setMinute(et.getMinute());
+                            //get the data from the document
+                            Toast.makeText(ShiftSetting.this, "DocumentSnapshot data: " + st, Toast.LENGTH_SHORT).show();
+
+
                         } else {
                             Log.d(TAG, "No such document");
                         }
                     } else {
                         Log.d(TAG, "get failed with ", task.getException());
                     }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    // This will be called if there is a failure
+                    // Log the exception to the console
+                    Log.d(TAG, "Error getting document", e);
                 }
             });
 
