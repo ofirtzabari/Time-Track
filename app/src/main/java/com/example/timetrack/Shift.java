@@ -75,6 +75,10 @@ public class Shift {
 
     }
 
+    public String getId() {
+        return id;
+    }
+
     @NonNull
     @SuppressLint("DefaultLocale")
     @Override

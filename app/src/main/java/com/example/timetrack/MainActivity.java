@@ -61,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
         scrollView =(ScrollView ) findViewById(R.id.scrollView);
         date = (TextView) findViewById(R.id.date);
         LocalDateTime now = LocalDateTime.now();
-        //only date without time
-
+        //only date without time is displayed
         date.setText(now.toLocalDate().toString());
 
         plus = findViewById(R.id.plusBtn);
@@ -175,9 +174,28 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
 
+                        //edit button
+                        Button editButton = new Button(MainActivity.this);
+                        editButton.setText("\uD83D\uDD8A");
+                        editButton.setLayoutParams(buttonLayoutParams);
+                        editButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // Handle edit button click event here
+                                // For example, remove the shift from the list and update the UI
+                                Intent intent = new Intent(MainActivity.this, ShiftSetting.class);
+                                //get the document name in firestore
+
+                                intent.putExtra("shiftId", shift.getId());
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+
                         // Add TextView and Button to the itemLayout
                         itemLayout.addView(textView);
                         itemLayout.addView(deleteButton);
+                        itemLayout.addView(editButton);
 
                         // Add the itemLayout to the parent layout (liniarLayout)
                         liniarLayout.addView(itemLayout);

@@ -1,16 +1,28 @@
 package com.example.timetrack;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,7 +38,6 @@ public class ShiftSetting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shift_setting);
-
 
         startDate = findViewById(R.id.editTextDate1);
         save = findViewById(R.id.button1);
@@ -102,8 +113,37 @@ public class ShiftSetting extends AppCompatActivity {
                 Intent intent = new Intent(ShiftSetting.this, MainActivity.class);
                 startActivity(intent);
                 finish();
-                // Do not call finish() here
             }
         });
+
+        //check if have Shift id in putExtra in the intent
+        if(getIntent().hasExtra("shiftId")){
+            //get the shift id from the intent
+            String shiftId = getIntent().getStringExtra("shiftId");
+
+            //initialize the clocks and date with the shift data
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            //get the shift data from the database
+            DocumentReference docRef = db.collection("shifts").document(shiftId);
+            docRef.get(Source.CACHE).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+
+                            ///get the data from the document
+                        } else {
+                            Log.d(TAG, "No such document");
+                        }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                }
+            });
+
+
+        }
     }
 }
