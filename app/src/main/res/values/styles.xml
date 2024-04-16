@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Other styles -->
+
+    <style name="DatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/app_bg_color</item> <!-- The color of the date picker header and selected date -->
+        <item name="android:datePickerDialogTheme">@style/PickerDialogTheme</item>
+    </style>
+
+    <style name="PickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@color/app_bg_color</item> <!-- The background color of the date picker dialog -->
+    </style>
+</resources>

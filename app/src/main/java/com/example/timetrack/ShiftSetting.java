@@ -58,7 +58,7 @@ public class ShiftSetting extends AppCompatActivity {
             int mDay = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and show it
-            DatePickerDialog datePickerDialog = new DatePickerDialog(ShiftSetting.this,
+            DatePickerDialog datePickerDialog = new DatePickerDialog(ShiftSetting.this,R.style.DatePickerDialogTheme,
                     (view, year, monthOfYear, dayOfMonth) -> {
                         // Display Selected date in EditText
                         startDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);

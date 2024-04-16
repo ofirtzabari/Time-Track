@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                         // Create a TextView to display the shift information
                         TextView textView = new TextView(MainActivity.this);
                         textView.setTextSize(20);
-                        textView.setPadding(10, 10, 0, 10);
+                        textView.setPadding(10, 10, 10, 10);
                         textView.setText(shift.toString());
 
                         // Create a Button to delete the shift
