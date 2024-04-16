@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         SignIn = (Button) findViewById(R.id.login);
         SignUp = (TextView) findViewById(R.id.sign_up);
 
-        SharedPreferences sp= this.getSharedPreferences("Login", MODE_PRIVATE);
+        SharedPreferences sp = this.getSharedPreferences("Login", MODE_PRIVATE);
         SharedPreferences.Editor Ed=sp.edit();
 
         SignUp.setOnClickListener(new View.OnClickListener() {
