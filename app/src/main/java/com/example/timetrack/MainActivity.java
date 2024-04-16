@@ -124,9 +124,9 @@ public class MainActivity extends AppCompatActivity {
                     LinearLayout liniarLayout = new LinearLayout(MainActivity.this);
                     liniarLayout.setOrientation(LinearLayout.VERTICAL);
                     GradientDrawable border = new GradientDrawable();
-                    border.setColor(Color.WHITE); // Set background color
-                    border.setStroke(2, Color.RED); // Set border color and width
+                    border.setColor(Color.rgb(205, 183, 231)); // Set background color
                     border.setCornerRadius(8); // Set corner radius
+                    border.setStroke(1, Color.BLACK);
 
                     for (final Shift shift : shifts) {
                         // Create a LinearLayout to hold TextView and Button
@@ -141,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                         TextView textView = new TextView(MainActivity.this);
                         textView.setTextSize(20);
                         textView.setPadding(10, 10, 0, 10);
-                        textView.setBackground(border);
                         textView.setText(shift.toString());
 
                         // Create a Button to delete the shift
@@ -155,13 +154,9 @@ public class MainActivity extends AppCompatActivity {
                         );
                         buttonLayoutParams.setMargins(20, 20, 20, 20); // Set left margin
                         deleteButton.setLayoutParams(buttonLayoutParams);
+                        deleteButton.setBackgroundResource(R.color.edit_delete_color); // Set background color
+                        deleteButton.setTextSize(20);
 
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                LinearLayout.LayoutParams.WRAP_CONTENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT
-                        );
-                        params.gravity = Gravity.CENTER;
-                        deleteButton.setLayoutParams(params);
                         deleteButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -184,8 +179,10 @@ public class MainActivity extends AppCompatActivity {
                         //edit button
                         Button editButton = new Button(MainActivity.this);
                         editButton.setText("\uD83D\uDD8A");
+                        editButton.setTextSize(20);
                         editButton.setLayoutParams(buttonLayoutParams);
-                        editButton.setLayoutParams(params);
+                        editButton.setBackgroundResource(R.color.edit_delete_color); // Set background color
+
                         editButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -202,8 +199,9 @@ public class MainActivity extends AppCompatActivity {
 
                         // Add TextView and Button to the itemLayout
                         itemLayout.addView(textView);
-                        itemLayout.addView(deleteButton);
                         itemLayout.addView(editButton);
+                        itemLayout.addView(deleteButton);
+                        itemLayout.setBackground(border);
 
                         // Add the itemLayout to the parent layout (liniarLayout)
                         liniarLayout.addView(itemLayout);

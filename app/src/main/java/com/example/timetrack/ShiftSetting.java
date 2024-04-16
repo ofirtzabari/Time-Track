@@ -166,7 +166,6 @@ public class ShiftSetting extends AppCompatActivity {
                             endTime.setHour(et.getHour());
                             endTime.setMinute(et.getMinute());
                             //get the data from the document
-                            Toast.makeText(ShiftSetting.this, "DocumentSnapshot data: " + st, Toast.LENGTH_SHORT).show();
 
 
                         } else {
