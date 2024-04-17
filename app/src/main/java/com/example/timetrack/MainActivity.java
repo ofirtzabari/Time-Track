@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                         // Create a TextView to display the shift information
                         TextView textView = new TextView(MainActivity.this);
                         textView.setTextSize(20);
-                        textView.setPadding(10, 10, 10, 10);
+                        textView.setPadding(20, 20, 20, 20);
                         textView.setText(shift.toString());
 
                         // Create a Button to delete the shift
@@ -149,10 +149,10 @@ public class MainActivity extends AppCompatActivity {
 
                         // Set layout parameters for the delete button
                         LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(
-                                150, // Width in pixels
-                                150  // Height in pixels
+                                200, // Width in pixels
+                                200  // Height in pixels
                         );
-                        buttonLayoutParams.setMargins(20, 20, 20, 20); // Set left margin
+                        buttonLayoutParams.setMargins(20, 60, 20, 20);
                         deleteButton.setLayoutParams(buttonLayoutParams);
                         deleteButton.setBackgroundResource(R.color.edit_delete_color); // Set background color
                         deleteButton.setTextSize(20);
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
                         //edit button
                         Button editButton = new Button(MainActivity.this);
-                        editButton.setText("\uD83D\uDD8A");
+                        editButton.setText("\u2699");
                         editButton.setTextSize(20);
                         editButton.setLayoutParams(buttonLayoutParams);
                         editButton.setBackgroundResource(R.color.edit_delete_color); // Set background color

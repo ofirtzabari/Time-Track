@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -65,6 +66,7 @@ public class ShiftSetting extends AppCompatActivity {
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
         });
+
 
         //email from shared preferences
         SharedPreferences sp= this.getSharedPreferences("Login", MODE_PRIVATE);

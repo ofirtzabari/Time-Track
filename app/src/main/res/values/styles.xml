@@ -3,11 +3,12 @@
     <!-- Other styles -->
 
     <style name="DatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/app_bg_color</item> <!-- The color of the date picker header and selected date -->
-        <item name="android:datePickerDialogTheme">@style/PickerDialogTheme</item>
+        <item name="colorAccent">@color/black</item> <!-- The color of the date picker header and selected date -->
+        <item name="android:textColorPrimary">@color/black</item> <!-- The primary text color, used in the date picker header -->
+        <item name="android:buttonBarButtonStyle">@style/YourButtonStyle</item> <!-- The style of the button -->
     </style>
 
-    <style name="PickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:windowBackground">@color/app_bg_color</item> <!-- The background color of the date picker dialog -->
+    <style name="YourButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/black</item> <!-- The text color of the button -->
     </style>
 </resources>
